@@ -1,0 +1,32 @@
+Name: Pradhan Mantri Awas Yojana (PMAY)
+Purpose: Affordable housing for urban and rural poor.
+Eligibility: Economically Weaker Sections (EWS), Low Income Groups (LIG), and Middle-Income Groups (MIG).
+Link: https://pmaymis.gov.in/
+
+---
+
+Name: Pradhan Mantri Jan Dhan Yojana (PMJDY)
+Purpose: Financial inclusion by opening zero-balance bank accounts.
+Eligibility: All citizens aged 10 and above.
+Link: https://pmjdy.gov.in/
+
+---
+
+Name: Startup India Scheme
+Purpose: To support innovation and startups through funding, tax benefits, and regulatory support.
+Eligibility: Startups recognized by DPIIT, established after 2016.
+Link: https://www.startupindia.gov.in/
+
+---
+
+Name: Stand-Up India Scheme
+Purpose: Promote entrepreneurship among women and SC/ST.
+Eligibility: SC/ST or women entrepreneurs aged 18+, seeking loan between ₹10–100 lakhs.
+Link: https://www.standupmitra.in/
+
+---
+
+Name: PM Kisan Samman Nidhi Yojana
+Purpose: Provide income support to farmers.
+Eligibility: Small and marginal farmers owning cultivable land.
+Link: https://pmkisan.gov.in/

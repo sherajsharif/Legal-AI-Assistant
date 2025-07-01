@@ -1,0 +1,102 @@
+✅ Roadmap:
+| Phase   | Task                                                                 |
+| ------- | -------------------------------------------------------------------- |
+| Phase 1 | Define 3–5 key use cases (legal info, FIR help, document gen)        |
+| Phase 2 | Collect data from official portals, create chunked legal documents   |
+| Phase 3 | Build LangChain QA app with RAG pipeline                             |
+| Phase 4 | Add Hindi/vernacular support                                         |
+| Phase 5 | Add voice interface (optional but impactful)                         |
+| Phase 6 | Deploy using **Render**, **HuggingFace Spaces**, or **Local Server** |
+| Phase 7 | Test with real users or NGO feedback                                 |
+
+
+📊 Architecture Diagram:
+
+                         ┌─────────────────────┐
+                         │    User Interface   │
+                         │  (Web / Mobile / CLI)│
+                         └────────┬────────────┘
+                                  │
+                                  ▼
+                        ┌───────────────────┐
+                        │   LangChain Agent │
+                        └────────┬──────────┘
+                                 │
+       ┌─────────────────────────┼──────────────────────────┐
+       ▼                         ▼                          ▼
+┌──────────────┐        ┌────────────────┐        ┌────────────────────┐
+│   RAG Chain  │        │  Tool Executor │        │ Multilingual Chain │
+│ (Retrieval + │        │ (Doc Writer,   │        │ (Translation Layer)│
+│  Generation) │        │  Summarizer)   │        └────────────────────┘
+└──────┬───────┘        └──────┬─────────┘
+       │                      ▼
+       ▼              ┌──────────────┐
+┌─────────────┐       │ PromptChain  │
+│  Chroma DB  │◄──────┤   (Tools)    │
+│ (Local VDB) │       └──────────────┘
+└─────────────┘
+
+         ▲
+         │
+   ┌─────────────┐
+   │  Legal Docs │  (PDFs, web data scraped & chunked)
+   │  & Schemes  │
+   └─────────────┘
+
+
+
+🧭 1. ✅ WORKFLOW (LangChain RAG with Translation + Tools)
+
+[User Question: Hindi/English/Voice]
+        │
+        ▼
+[Frontend UI: Streamlit or React]
+        │
+        ▼
+[LangChain Backend (FastAPI)]
+        │
+        ▼
+[LangChain Agent]
+  ├──> Multilingual Chain (Hindi <-> English)
+  ├──> RAG Chain:
+  │     ├─ Embed Question (MiniLM)
+  │     ├─ Search Legal Docs in ChromaDB
+  │     └─ Generate Answer using Mistral (via Ollama)
+  └──> Tool Chain:
+        ├─ Draft RTI / FIR
+        └─ Summarize Rights
+        ▼
+   [Send Answer to Frontend]
+
+
+
+💻 2. ✅ TECH STACK:
+
+| Layer            | Technology                                             | Notes                    |
+| ---------------- | ------------------------------------------------------ | ------------------------ |
+| UI               | **Streamlit** or **React + Vercel**                    | Free and user-friendly   |
+| Backend          | **FastAPI**                                            | Fast and easy Python API |
+| Orchestration    | **LangChain**                                          | Manages LLM + tools      |
+| LLM              | **Mistral 7B (via Ollama)**                            | Free, high-quality       |
+| Embedding Model  | `all-MiniLM-L6-v2`                                     | Free via HuggingFace     |
+| Vector DB        | **ChromaDB**                                           | Lightweight & offline    |
+| Translation      | `indic-trans` or `googletrans`                         | Supports Hindi/English   |
+| Voice (optional) | `Vosk` (STT) + `CoquiTTS` (TTS)                        | For speech IO            |
+| Deployment       | **Render (backend)** + **Vercel/Streamlit (frontend)** | Fully free tier          |
+
+
+
+
+| Use Case          | Example Input                  | LangChain Flow         | Output                 |
+| ----------------- | ------------------------------ | ---------------------- | ---------------------- |
+| Legal Q\&A        | "क्या मैं ज़मानत ले सकता हूँ?"       | RAG → Mistral          | Simplified answer      |
+| RTI/FIR Draft     | "Create FIR for bike theft"    | PromptTemplate         | Ready-to-use document  |
+| Govt Schemes      | "Old age pension scheme"       | RAG → Mistral          | Eligibility info       |
+| Process Explainer | "Consumer complaint steps"     | RAG + Summarizer       | Step-by-step answer    |
+| Emergency Help    | "Harassment what to do"        | Fixed response + links | Action steps + numbers |
+
+cd D:\Projects\legal-aid-bot\backend
+uvicorn main:app --reload --port 8000
+
+cd D:\Projects\legal-aid-bot\frontend
+streamlit run streamlit_app.py
