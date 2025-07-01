@@ -97,6 +97,7 @@
 
 cd D:\Projects\legal-aid-bot\backend
 uvicorn main:app --reload --port 8000
+uvicorn main:app --reload
 
 cd D:\Projects\legal-aid-bot\frontend
 streamlit run streamlit_app.py

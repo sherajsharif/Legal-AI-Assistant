@@ -262,19 +262,25 @@ with st.container():
         else:
             with st.spinner("Searching your rights..."):
                 response = requests.post(
-                    "http://127.0.0.1:8000/query",
-                    json={"question": query, "collection": collection_key, "language": language_key}
+                    "http://127.0.0.1:8000/chat",
+                    json={"prompt": query}
                 )
                 try:
-                    result = response.json().get("answer", "❌ No response received.")
+                    result = response.json()
+                    # st.write("DEBUG: Backend response:", result)
+                    answer = ""
+                    if isinstance(result.get("response"), dict):
+                        answer = result["response"].get("content", "❌ No response received.")
+                    else:
+                        answer = result.get("response", "❌ No response received.")
                 except Exception as e:
                     st.error(f"Failed to parse backend response as JSON. Raw response: {response.text}\nError: {e}")
-                    result = None
-                if result:
+                    answer = None
+                if answer:
                     st.markdown(f'<div class="chat-bubble-q">🧑‍💼 {query}</div>', unsafe_allow_html=True)
-                    st.markdown(f'<div class="chat-bubble-a">📝 {result}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="chat-bubble-a">📝 {answer}</div>', unsafe_allow_html=True)
                     # --- TTS Output ---
-                    tts = gTTS(result)
+                    tts = gTTS(answer)
                     tts_fp = tempfile.NamedTemporaryFile(delete=False, suffix='.mp3')
                     tts.save(tts_fp.name)
                     audio_bytes = None
@@ -288,7 +294,7 @@ with st.container():
                     # --- Save to session history ---
                     if "qa_history" not in st.session_state:
                         st.session_state["qa_history"] = []
-                    st.session_state["qa_history"].insert(0, {"q": query, "a": result})
+                    st.session_state["qa_history"].insert(0, {"q": query, "a": answer})
                     st.session_state["qa_history"] = st.session_state["qa_history"][:5]
 
     # --- Query History Section ---
