@@ -8,6 +8,9 @@ import av
 import numpy as np
 import speech_recognition as sr
 
+BACKEND_URL = "https://legal-ai-assistant-backend-3mgn.onrender.com"
+# BACKEND_URL = st.secrets["BACKEND_URL"]
+
 # --- Custom CSS for modern look ---
 st.markdown('''
     <style>
@@ -229,7 +232,7 @@ with st.container():
         with st.spinner("Processing your document..."):
             files = {"file": (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)}
             response = requests.post(
-                "http://127.0.0.1:8000/upload_doc",
+                f"{BACKEND_URL}/upload_doc",
                 files=files
             )
             if response.status_code == 200:
@@ -241,7 +244,7 @@ with st.container():
                     pdf_download = st.button("Download Draft as PDF", key="download_pdf_btn")
                     if pdf_download:
                         pdf_response = requests.post(
-                            "http://127.0.0.1:8000/generate_pdf",
+                            f"{BACKEND_URL}/generate_pdf",
                             json={"draft": data["draft"]}
                         )
                         if pdf_response.status_code == 200:
@@ -262,7 +265,7 @@ with st.container():
         else:
             with st.spinner("Searching your rights..."):
                 response = requests.post(
-                    "http://127.0.0.1:8000/chat",
+                    f"{BACKEND_URL}/chat",
                     json={"prompt": query}
                 )
                 try:
