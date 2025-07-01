@@ -1,5 +1,9 @@
-streamlit
-gtts
-requests
+fastapi
+uvicorn
+langchain-groq
+groq
+PyPDF2
 fpdf
-PyPDF2 
+python-dotenv
+python-multipart
+streamlit-webrtc
