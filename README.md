@@ -37,7 +37,7 @@ A modern legal assistant chatbot for India, powered by Llama 3 via Groq API. Sup
 
 ## Deployment (Render Example)
 - Push your code to GitHub.
-- On Render, create a new Web Service:
+- On Streamlit , create a new Web Service(https://legal-ai-assistant-sheraj.streamlit.app/):
   - Build command: `pip install -r requirements.txt`
   - Start command: `uvicorn main:app --host 0.0.0.0 --port 10000`
   - Set environment variable: `GROQ_API_KEY`
