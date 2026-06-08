@@ -1,3 +1,11 @@
+streamlit
+requests
+gtts
+streamlit-webrtc
+av
+numpy
+SpeechRecognition
+
 fastapi
 uvicorn
 langchain-groq
@@ -6,5 +14,3 @@ PyPDF2
 fpdf
 python-dotenv
 python-multipart
-streamlit-webrtc
-SpeechRecognition
